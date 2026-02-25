@@ -72,6 +72,7 @@ Latest recorded measurement:
 ```txt
 Tool: Lighthouse 13.2.0
 Mode: mobile simulation
+URL:  https://barbershop.vercel.app/
 Date: 2026-07-01
 ```
 
