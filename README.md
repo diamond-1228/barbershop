@@ -122,6 +122,12 @@ O fallback local existe para desenvolvimento e demonstracao. Em producao, o app 
 
 ## Demonstracao
 
+Deploy atual:
+
+```txt
+https://barbershop.vercel.app
+```
+
 Rotas principais:
 
 ```txt
@@ -516,5 +522,3 @@ Desenvolvido por Leandro Jesse.
 GitHub:
 
 https://github.com/leorecoa
-
-Last updated: 4 Mar 2026
