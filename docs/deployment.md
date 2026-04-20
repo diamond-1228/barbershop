@@ -30,10 +30,10 @@ Configure manualmente em **Supabase Dashboard > Authentication > URL Configurati
 
 ```text
 Site URL:
-https://barbershop.vercel.app
+the production origin of this app
 
 Redirect URLs:
-https://barbershop.vercel.app/auth/callback
+<production origin>/auth/callback
 http://localhost:4173/auth/callback
 ```
 

@@ -7,7 +7,7 @@
 
   Optional env vars:
 
-    BOOKING_URL=https://barbershop.vercel.app/book/leo-do-leo
+    BOOKING_URL=https://<your-host>/book/<slug>
     BOOKING_NAME=Pedro Debug
     BOOKING_PHONE=81987324097
     BOOKING_NOTES=Teste de payload
@@ -72,7 +72,10 @@ type PlaywrightModule = {
   };
 };
 
-const BOOKING_URL = process.env.BOOKING_URL || 'https://barbershop.vercel.app/book/leo-do-leo';
+const BOOKING_URL = process.env.BOOKING_URL;
+if (!BOOKING_URL) {
+  throw new Error('Set BOOKING_URL to the public booking page to inspect.');
+}
 const BOOKING_NAME = process.env.BOOKING_NAME || 'Pedro Debug';
 const BOOKING_PHONE = process.env.BOOKING_PHONE || '81987324097';
 const BOOKING_NOTES = process.env.BOOKING_NOTES || 'Teste de payload';
