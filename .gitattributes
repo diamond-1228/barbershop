@@ -1,0 +1,15 @@
+# GitHub's language bar ignores documentation, generated, and vendored paths.
+# These overrides keep the other source languages visible.
+
+*.sql linguist-detectable=true linguist-vendored=false linguist-generated=false linguist-documentation=false linguist-language=SQL
+*.css linguist-detectable=true linguist-vendored=false linguist-generated=false linguist-documentation=false linguist-language=CSS
+*.html linguist-detectable=true linguist-vendored=false linguist-generated=false linguist-documentation=false linguist-language=HTML
+*.ps1 linguist-detectable=true linguist-vendored=false linguist-generated=false linguist-documentation=false linguist-language=PowerShell
+*.md linguist-detectable=true linguist-documentation=false linguist-language=Markdown
+*.json linguist-detectable=true linguist-generated=false linguist-language=JSON
+*.yml linguist-detectable=true linguist-generated=false linguist-language=YAML
+*.yaml linguist-detectable=true linguist-generated=false linguist-language=YAML
+
+docs/** linguist-detectable=true linguist-documentation=false
+supabase/** linguist-detectable=true linguist-vendored=false linguist-generated=false linguist-documentation=false
+scripts/** linguist-detectable=true linguist-vendored=false linguist-generated=false
