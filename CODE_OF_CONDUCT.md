@@ -1,24 +1,24 @@
-# Codigo de Conduta
+# Code of Conduct
 
-Este projeto deve ser um espaco respeitoso, profissional e produtivo.
+This project should be a respectful, professional, and productive space.
 
-## Comportamentos esperados
+## Expected behavior
 
-- Tratar pessoas com respeito.
-- Fazer criticas focadas no codigo, produto ou processo.
-- Explicar problemas com clareza e evidencias.
-- Receber feedback com abertura.
-- Manter discussoes tecnicas objetivas.
+- Treat people with respect.
+- Focus criticism on code, product, or process.
+- Explain problems with clarity and evidence.
+- Receive feedback with openness.
+- Keep technical discussions objective.
 
-## Comportamentos nao aceitos
+## Unacceptable behavior
 
-- Ataques pessoais, assedio ou discriminacao.
-- Comentarios ofensivos ou intimidadores.
-- Exposicao de dados privados.
-- Spam ou autopromocao fora de contexto.
+- Personal attacks, harassment, or discrimination.
+- Offensive or intimidating comments.
+- Exposure of private data.
+- Spam or self-promotion out of context.
 
-## Reporte
+## Reporting
 
-Se encontrar um problema de conduta, abra uma issue descrevendo a situacao com o maximo de contexto possivel.
+If you encounter a conduct issue, open an issue describing the situation with as much context as possible.
 
-O mantenedor pode remover comentarios, fechar discussoes ou bloquear interacoes que prejudiquem o projeto.
+The maintainer may remove comments, close discussions, or block interactions that harm the project.

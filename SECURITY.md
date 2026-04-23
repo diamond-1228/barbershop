@@ -1,43 +1,43 @@
-# Politica de Seguranca
+# Security Policy
 
-## Versoes suportadas
+## Supported versions
 
-| Versao | Suporte |
+| Version | Support |
 | --- | --- |
-| `main` | Sim |
-| `v0.9.0-pilot` | Sim |
+| `main` | Yes |
+| `v0.9.0-pilot` | Yes |
 
-## Reportando vulnerabilidades
+## Reporting vulnerabilities
 
-Se encontrar uma vulnerabilidade, evite publicar detalhes sensiveis em uma issue aberta.
+If you find a vulnerability, avoid publishing sensitive details in an open issue.
 
-Envie um resumo privado para o mantenedor ou abra uma issue sem dados exploraveis, descrevendo:
+Send a private summary to the maintainer or open an issue without exploitable data, describing:
 
-- area afetada;
-- impacto esperado;
-- passos gerais para reproduzir;
-- versao, commit ou ambiente usado.
+- affected area;
+- expected impact;
+- general steps to reproduce;
+- version, commit, or environment used.
 
-## Escopo de seguranca atual
+## Current security scope
 
-O barbershop e uma SPA React com Supabase Auth, Database e RLS.
+barbershop is a React SPA with Supabase Auth, Database, and RLS.
 
-O modelo atual usa `barbershop_id` como chave de isolamento multi-tenant:
+The current model uses `barbershop_id` as the multi-tenant isolation key:
 
-- owner opera apenas a propria barbearia;
-- barber opera apenas a propria barbearia e o proprio `barber_id`;
-- public booking resolve a barbearia por slug em `/book/:slug`;
-- public booking nao deve assumir tenant padrao silencioso;
-- public booking nao deve fazer `SELECT` publico na tabela completa `appointments`;
-- disponibilidade publica deve usar `public.get_public_appointment_slots(uuid)`;
-- inserts publicos em `appointments` nao devem solicitar retorno de linhas sensiveis;
-- Vinculo comercial de barber exige convite e aceite explicito por `accept_team_invitation`; veja `docs/team-invitations.md`.
+- owner operates only their own barbershop;
+- barber operates only their own barbershop and their own `barber_id`;
+- public booking resolves the barbershop by slug at `/book/:slug`;
+- public booking should not silently assume a default tenant;
+- public booking should not perform public `SELECT` on the full `appointments` table;
+- public availability should use `public.get_public_appointment_slots(uuid)`;
+- public inserts into `appointments` should not request return of sensitive rows;
+- commercial barber linking requires invitation and explicit acceptance via `accept_team_invitation`; see `docs/team-invitations.md`.
 
 ## Supabase
 
-As policies RLS e SQLs manuais precisam estar aplicados no projeto Supabase correto.
+RLS policies and manual SQLs must be applied to the correct Supabase project.
 
-Arquivos de referencia:
+Reference files:
 
 - `docs/security-model.md`
 - `docs/supabase-schema.sql`
@@ -47,24 +47,24 @@ Arquivos de referencia:
 - `docs/team-invitations.md`
 - `docs/deployment.md`
 
-Nao desative RLS para corrigir bug de frontend.
+Do not disable RLS to fix a frontend bug.
 
-Nao libere `SELECT` publico em `appointments`; essa tabela contem dados de clientes, como nome, telefone e observacoes.
+Do not grant public `SELECT` on `appointments`; this table contains customer data such as name, phone, and notes.
 
-## Fallback local
+## Local fallback
 
-O fallback em `localStorage` existe para desenvolvimento ou demonstracao local sem Supabase.
+The `localStorage` fallback exists for local development or demonstration without Supabase.
 
-Em producao, o app deve falhar fechado quando `VITE_SUPABASE_URL` ou `VITE_SUPABASE_ANON_KEY` nao estiverem configuradas corretamente. Producao nao deve salvar tenant, catalogo, perfis, agenda ou financeiro em `localStorage` por ausencia de Supabase.
+In production, the app should fail closed when `VITE_SUPABASE_URL` or `VITE_SUPABASE_ANON_KEY` are not properly configured. Production should not save tenant, catalog, profiles, schedule, or financial data in `localStorage` due to missing Supabase.
 
-## Boas praticas
+## Best practices
 
-- Nao publique backups com dados reais.
-- Nao compartilhe relatorios contendo dados de clientes.
-- Nao commite `.env`.
-- Confirme as env vars da Vercel antes de piloto ou deploy.
-- Rode `npm audit --audit-level=moderate` antes de releases.
-- Rode a bateria de validacao antes de merge:
+- Do not publish backups with real data.
+- Do not share reports containing customer data.
+- Do not commit `.env`.
+- Confirm Vercel env vars before pilot or deploy.
+- Run `npm audit --audit-level=moderate` before releases.
+- Run the validation suite before merge:
 
 ```bash
 npm run test
@@ -76,13 +76,13 @@ npm audit --audit-level=moderate
 npx playwright test
 ```
 
-## Limites conhecidos
+## Known limitations
 
-Este documento nao afirma seguranca absoluta.
+This document does not claim absolute security.
 
-Pontos que ainda podem evoluir:
+Points that can still evolve:
 
-- CAPTCHA/rate limit externo para booking publico;
-- observabilidade e auditoria operacional fora do console;
-- hardening adicional contra XSS e roubo de sessao em SPA;
-- revisao periodica de RLS antes de qualquer mudanca em tenant/RBAC.
+- CAPTCHA/external rate limit for public booking;
+- observability and operational auditing outside the console;
+- additional hardening against XSS and session theft in SPA;
+- periodic RLS review before any tenant/RBAC change.

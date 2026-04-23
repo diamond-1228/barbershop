@@ -1,20 +1,20 @@
 ---
 name: Feature request
-about: Sugira uma melhoria para o produto
+about: Suggest an improvement for the product
 title: "feat: "
 labels: enhancement
 assignees: ""
 ---
 
-## Problema
+## Problem
 
 
-## Proposta
+## Proposal
 
 
-## Criterios de aceite
+## Acceptance criteria
 
 - 
 
-## Contexto adicional
+## Additional context
 

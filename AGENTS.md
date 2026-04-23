@@ -1,39 +1,39 @@
 # AGENTS.md - barbershop
 
-## Contexto
+## Context
 
-Este repositorio e uma SPA React 19 + TypeScript + Vite para barbearias.
+This repository is a React 19 + TypeScript + Vite SPA for barbershops.
 
-O app inclui:
+The app includes:
 
-- Agenda interna de appointments.
-- Booking publico em `/book` e `/agendar`.
-- Dashboard financeiro, comissoes, vales e relatorios PDF/CSV.
-- Supabase persistence com fallback em `localStorage`.
-- Supabase Auth com roles `owner` e `barber`.
-- Testes com Vitest, CI no GitHub Actions e deploy na Vercel.
+- Internal appointment scheduling.
+- Public booking at `/book` and `/agendar`.
+- Financial dashboard, commissions, advances, and PDF/CSV reports.
+- Supabase persistence with `localStorage` fallback.
+- Supabase Auth with `owner` and `barber` roles.
+- Tests with Vitest, CI on GitHub Actions, and deploy on Vercel.
 
-## Regra Principal
+## Main Rule
 
-Estabilidade primeiro.
+Stability first.
 
-Faca mudancas pequenas, focadas e revisaveis. Nao faca refatoracoes grandes sem pedido explicito.
+Make small, focused, and reviewable changes. Do not make large refactors without explicit request.
 
-## Antes de Alterar
+## Before Making Changes
 
-1. Verifique a branch e o status:
+1. Check the branch and status:
 
 ```bash
 git status --short --branch
 ```
 
-2. Leia os arquivos relevantes antes de editar.
-3. Preserve alteracoes existentes do usuario.
-4. Nao toque em financeiro, comissao, PDF/CSV, dashboard ou schema Supabase sem relacao direta com a task.
+2. Read relevant files before editing.
+3. Preserve existing user changes.
+4. Do not touch financial, commission, PDF/CSV, dashboard, or Supabase schema without direct relation to the task.
 
-## Validacao Padrao
+## Standard Validation
 
-Antes de finalizar, rode:
+Before finishing, run:
 
 ```bash
 npm run check
@@ -41,17 +41,17 @@ npm run build
 npm audit --audit-level=moderate
 ```
 
-Se algum comando nao puder ser executado, explique o motivo.
+If any command cannot be executed, explain the reason.
 
 ## Supabase
 
-- Nunca commite `.env`.
-- Use `.env.example` para documentar variaveis.
-- Booking publico nao deve ler dados sensiveis de `appointments`.
-- Em fluxo publico, use `public.get_public_appointment_slots(uuid)` para disponibilidade ocupada por tenant. Nao consulte `public.appointments` nem `public_appointment_slots` diretamente no frontend publico.
-- Leitura completa de `appointments` deve ser restrita ao painel interno autenticado.
-- Nao resolva bugs de Supabase desativando RLS, concedendo SELECT publico em `appointments` ou criando fallback global de tenant.
-- Para tasks com Supabase, gere SQL review-only; a aplicacao remota e manual.
+- Never commit `.env`.
+- Use `.env.example` to document variables.
+- Public booking must not read sensitive data from `appointments`.
+- In public flow, use `public.get_public_appointment_slots(uuid)` for occupied availability per tenant. Do not query `public.appointments` or `public_appointment_slots` directly in the public frontend.
+- Full reading of `appointments` must be restricted to the authenticated internal panel.
+- Do not solve Supabase bugs by disabling RLS, granting public SELECT on `appointments`, or creating a global tenant fallback.
+- For Supabase tasks, generate review-only SQL; remote application is manual.
 
 ## SaaS Security
 
@@ -64,6 +64,6 @@ Se algum comando nao puder ser executado, explique o motivo.
 
 ## Git
 
-- Commits devem ser pequenos e com escopo claro.
-- Use `gh` para abrir PR quando a branch estiver pronta.
-- Nao inclua `node_modules`, `dist`, `.env` ou arquivos temporarios.
+- Commits should be small and clearly scoped.
+- Use `gh` to open PR when the branch is ready.
+- Do not include `node_modules`, `dist`, `.env`, or temporary files.

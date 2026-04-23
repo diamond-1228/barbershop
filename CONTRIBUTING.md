@@ -1,54 +1,54 @@
-# Contribuindo
+# Contributing
 
-Obrigado por considerar contribuir com o barbershop.
+Thank you for considering contributing to barbershop.
 
-Este projeto usa um fluxo simples: criar uma issue, abrir uma branch pequena, validar localmente e enviar um pull request.
+This project uses a simple flow: create an issue, open a small branch, validate locally, and submit a pull request.
 
-## Ambiente local
+## Local environment
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Antes de abrir PR
+## Before opening a PR
 
-Rode o gate completo:
+Run the full gate:
 
 ```bash
 npm run check
 npm audit --audit-level=moderate
 ```
 
-## Padrao de branch
+## Branch naming
 
-Use nomes curtos e descritivos:
+Use short and descriptive names:
 
-- `fix/descricao-curta`
-- `feat/descricao-curta`
-- `docs/descricao-curta`
-- `test/descricao-curta`
+- `fix/short-description`
+- `feat/short-description`
+- `docs/short-description`
+- `test/short-description`
 
-## Padrao de commit
+## Commit conventions
 
-Prefira commits pequenos com prefixos claros:
+Prefer small commits with clear prefixes:
 
-- `fix: corrige calculo de comissao`
-- `feat: adiciona filtro por barbeiro`
-- `docs: atualiza guia de instalacao`
-- `test: cobre regras de relatorio`
+- `fix: correct commission calculation`
+- `feat: add barber filter`
+- `docs: update installation guide`
+- `test: cover report rules`
 
-## Checklist do PR
+## PR checklist
 
-- A mudanca resolve uma issue ou melhoria clara.
-- O PR explica o que mudou e como foi validado.
-- `npm run check` passa localmente.
-- `npm audit --audit-level=moderate` nao reporta vulnerabilidades.
+- The change resolves a clear issue or improvement.
+- The PR explains what changed and how it was validated.
+- `npm run check` passes locally.
+- `npm audit --audit-level=moderate` reports no vulnerabilities.
 
-## Fechando issues
+## Closing issues
 
-Quando o PR resolver uma issue, inclua no corpo do PR:
+When the PR resolves an issue, include in the PR body:
 
 ```text
-Closes #NUMERO_DA_ISSUE
+Closes #ISSUE_NUMBER
 ```

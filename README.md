@@ -1,8 +1,8 @@
 # barbershop
 
-SaaS multi-tenant para operacao de barbearias, com foco em agenda, booking publico, catalogo por tenant, barbeiros, servicos e controle operacional.
+Multi-tenant SaaS for barbershop operations, focused on scheduling, public booking, per-tenant catalog, barbers, services, and operational control.
 
-O projeto nasceu como uma ferramenta de controle interno e hoje opera como uma aplicacao React + Supabase com autenticacao, isolamento por `barbershop_id`, RLS tenant-aware e fluxos separados para owner, barber e cliente final.
+The project started as an internal control tool and now operates as a React + Supabase application with authentication, `barbershop_id` isolation, tenant-aware RLS, and separate flows for owner, barber, and end customer.
 
 <p align="left">
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=111827" />
@@ -16,170 +16,170 @@ O projeto nasceu como uma ferramenta de controle interno e hoje opera como uma a
 
 ---
 
-## Visao geral
+## Overview
 
-O **barbershop** e uma SPA para gestao de barbearias com modelo SaaS multi-tenant.
+**barbershop** is a SPA for barbershop management with a multi-tenant SaaS model.
 
-O produto cobre tres frentes principais:
+The product covers three main areas:
 
-- operacao interna da barbearia;
-- booking publico por slug em `/book/:slug`;
-- isolamento de tenant por `barbershop_id`.
+- internal barbershop operations;
+- public booking by slug at `/book/:slug`;
+- tenant isolation by `barbershop_id`.
 
-Hoje o app ja suporta agenda interna, catalogo por tenant, onboarding de owner, vinculacao de barbeiro a usuario, painel proprio do barbeiro e configuracao operacional da barbearia.
+The app currently supports internal scheduling, per-tenant catalog, owner onboarding, barber-to-user linking, barber's own panel, and operational barbershop configuration.
 
-Classificacao atual:
+Current classification:
 
 ```txt
-MVP tecnico: concluido
-Baseline piloto: concluida
-Piloto controlado: pronto
-SaaS comercial escalavel: ainda em evolucao
+Technical MVP: completed
+Pilot baseline: completed
+Controlled pilot: ready
+Scalable commercial SaaS: still evolving
 ```
 
 ---
 
-## Problema que resolve
+## Problem it solves
 
-Barbearias pequenas e medias costumam operar agenda, comissao, servicos e fechamento por planilha, caderno ou mensagens.
+Small and medium barbershops typically manage scheduling, commissions, services, and closing via spreadsheets, notebooks, or messages.
 
-Esse fluxo tende a gerar:
+This workflow tends to cause:
 
-- perda de historico operacional;
-- calculo manual de comissao;
-- agenda misturada entre profissionais;
-- dificuldade para abrir booking publico sem expor dados internos;
-- dependencia de ajustes manuais no banco para colocar uma nova barbearia em operacao;
-- risco de mistura de dados entre tenants em uma evolucao SaaS mal isolada.
+- loss of operational history;
+- manual commission calculation;
+- mixed scheduling between professionals;
+- difficulty opening public booking without exposing internal data;
+- dependency on manual database adjustments to bring a new barbershop into operation;
+- risk of data mixing between tenants in a poorly isolated SaaS evolution.
 
-O barbershop centraliza essa operacao em uma unica aplicacao, com tenant isolation e fluxos separados por papel.
-
----
-
-## Funcionalidades principais
-
-- agenda interna com status de agendamento;
-- booking publico por slug;
-- catalogo de barbeiros por tenant;
-- catalogo de servicos por tenant;
-- configuracao de business hours e `slot_step_minutes` por barbearia;
-- onboarding de owner e checklist operacional;
-- empty states operacionais para tenants sem dados;
-- branding publico da barbearia;
-- convite de acesso ao barbeiro com aceite explicito;
-- UX de convites com mensagens amigaveis;
-- painel do barbeiro com agenda propria;
-- criacao manual de agendamento pelo barbeiro usando a sessao autenticada;
-- controle de faturamento bruto, comissao calculada, saldo estimado, vales e relatorios;
-- mensagens operacionais para erros conhecidos;
-- logs tecnicos contextualizados e sanitizados;
-- persistencia em Supabase com fallback local apenas para dev/demo;
-- autenticacao com roles `owner` e `barber`;
-- isolamento multi-tenant por `barbershop_id`.
+barbershop centralizes these operations in a single application, with tenant isolation and role-based flows.
 
 ---
 
-## Estado atual do produto
+## Main features
 
-O barbershop esta em baseline piloto multi-tenant. O MVP tecnico esta concluido e o app esta pronto para piloto controlado, desde que o ambiente Supabase real esteja configurado e validado. A evolucao para SaaS comercial escalavel ainda depende de billing, convite formal de equipe, admin global e observabilidade externa.
-
-Estado resumido:
-
-```txt
-MVP tecnico: concluido
-Baseline piloto: concluida
-Piloto controlado: pronto
-SaaS comercial escalavel: ainda em evolucao
-```
-
-Estado funcional atual:
-
-- multi-tenant por `barbershop_id`;
-- booking publico por `/book/:slug`;
-- onboarding guiado do owner para criar a propria barbearia;
-- checklist operacional de readiness do booking;
-- catalogo de barbeiros e servicos por tenant;
-- business hours e `slot_step_minutes` por barbearia;
-- branding publico por tenant;
-- empty states para barbearias sem barbeiros, servicos, agenda ou dados financeiros;
-- Vinculo comercial de barber exige convite e aceite explicito por `accept_team_invitation`; veja `docs/team-invitations.md`.
-- UX de convites sem exposicao de detalhes internos;
-- painel do barbeiro restrito a propria agenda;
-- criacao manual de agendamento pelo barbeiro usando `authSession.barbershopId` e `authSession.barberId`;
-- bloqueio de slug invalido no booking publico;
-- validacao de payload no booking publico;
-- bloqueio de horarios duplicados ativos por `barbershop_id`, `barber_id` e `start_at`;
-- relatorios com nomenclatura explicita: faturamento bruto, comissao calculada e saldo estimado;
-- mensagens humanas para erros operacionais conhecidos;
-- logs tecnicos contextualizados e sanitizados para diagnostico;
-- fail-closed em producao sem Supabase configurado;
-- cobertura automatizada com Vitest e Playwright;
-- otimizacoes de bundle inicial, splash/loading e render inicial.
-
-O fallback local existe para desenvolvimento e demonstracao. Em producao, o app nao deve operar dados reais sem Supabase configurado.
+- internal scheduling with appointment status;
+- public booking by slug;
+- per-tenant barber catalog;
+- per-tenant service catalog;
+- business hours and `slot_step_minutes` configuration per barbershop;
+- owner onboarding and operational checklist;
+- operational empty states for tenants without data;
+- public barbershop branding;
+- barber access invitation with explicit acceptance;
+- invitation UX with friendly messages;
+- barber panel with own schedule;
+- manual appointment creation by barber using authenticated session;
+- gross revenue, calculated commission, estimated balance, advances, and reports;
+- operational messages for known errors;
+- contextualized and sanitized technical logs;
+- Supabase persistence with local fallback for dev/demo only;
+- authentication with `owner` and `barber` roles;
+- multi-tenant isolation by `barbershop_id`.
 
 ---
 
-## Demonstracao
+## Current product state
 
-Rotas principais:
+barbershop is at multi-tenant pilot baseline. The technical MVP is completed and the app is ready for controlled pilot, as long as the real Supabase environment is configured and validated. Evolution to scalable commercial SaaS still depends on billing, formal team invitation, global admin, and external observability.
+
+Summary:
 
 ```txt
-/                 painel interno ou fluxo publico conforme contexto
-/book/:slug       booking publico da barbearia
-/book             rota publica sem slug explicito
-/agendar          alias publico
-/onboarding       criacao inicial da barbearia do owner
+Technical MVP: completed
+Pilot baseline: completed
+Controlled pilot: ready
+Scalable commercial SaaS: still evolving
 ```
 
-Fluxo publico:
+Current functional state:
+
+- multi-tenant by `barbershop_id`;
+- public booking via `/book/:slug`;
+- guided owner onboarding to create their own barbershop;
+- operational booking readiness checklist;
+- per-tenant barber and service catalog;
+- business hours and `slot_step_minutes` per barbershop;
+- per-tenant public branding;
+- empty states for barbershops without barbers, services, schedule, or financial data;
+- commercial barber linking requires invitation and explicit acceptance via `accept_team_invitation`; see `docs/team-invitations.md`;
+- invitation UX without exposing internal details;
+- barber panel restricted to own schedule;
+- manual appointment creation by barber using `authSession.barbershopId` and `authSession.barberId`;
+- invalid slug blocking on public booking;
+- payload validation on public booking;
+- duplicate active slot blocking by `barbershop_id`, `barber_id`, and `start_at`;
+- reports with explicit naming: gross revenue, calculated commission, and estimated balance;
+- human-readable messages for known operational errors;
+- contextualized and sanitized technical logs for diagnostics;
+- fail-closed in production without configured Supabase;
+- automated coverage with Vitest and Playwright;
+- initial bundle, splash/loading, and initial render optimizations.
+
+The local fallback exists for development and demonstration. In production, the app should not operate real data without configured Supabase.
+
+---
+
+## Demo
+
+Main routes:
 
 ```txt
-Cliente acessa /book/:slug
--> escolhe barbeiro
--> escolhe servico
--> escolhe data e horario
--> informa nome e telefone
--> confirma agendamento
+/                 internal panel or public flow based on context
+/book/:slug       barbershop public booking
+/book             public route without explicit slug
+/agendar          public alias
+/onboarding       owner's initial barbershop creation
 ```
 
-Fluxo owner:
+Public flow:
 
 ```txt
-Owner entra no painel
--> configura barbearia
--> define dias/horarios
--> cria barbeiros
--> cria servicos
--> verifica checklist
--> usa o link /book/:slug
+Customer accesses /book/:slug
+-> selects barber
+-> selects service
+-> selects date and time
+-> enters name and phone
+-> confirms appointment
 ```
 
-Fluxo barber:
+Owner flow:
 
 ```txt
-Barber entra com conta vinculada
--> ve apenas a propria agenda
--> cria agendamento manual apenas para si
--> atualiza status do proprio fluxo operacional
+Owner enters the panel
+-> configures barbershop
+-> sets days/hours
+-> creates barbers
+-> creates services
+-> checks checklist
+-> uses the /book/:slug link
+```
+
+Barber flow:
+
+```txt
+Barber enters with linked account
+-> sees only own schedule
+-> creates manual appointment only for themselves
+-> updates status of own operational flow
 ```
 
 ---
 
-## Arquitetura
+## Architecture
 
-A aplicacao separa interface, regras de negocio e persistencia por repositories.
+The application separates interface, business rules, and persistence through repositories.
 
 ```txt
-Frontend React
-|- rotas publicas
-|  \- booking publico por slug
+React Frontend
+|- public routes
+|  \- public booking by slug
 |
-|- painel interno
+|- internal panel
 |  |- owner
 |  \- barber
 |
-|- camada de dominio
+|- domain layer
 |  |- appointments
 |  |- barbers
 |  |- services
@@ -188,23 +188,23 @@ Frontend React
 |
 |- repositories
 |  |- Supabase
-|  \- fallback local para dev/demo
+|  \- local fallback for dev/demo
 |
-\- infraestrutura
+\- infrastructure
    |- Supabase Auth
    |- Supabase Database
    |- Supabase RLS
    \- Vercel
 ```
 
-Decisoes importantes:
+Key decisions:
 
-- React + TypeScript no frontend;
-- Supabase como backend gerenciado;
-- repositories para separar UI e persistencia;
-- fallback local apenas fora de producao;
-- booking publico desacoplado de `appointments` completos;
-- tenant isolation por `barbershop_id`.
+- React + TypeScript on the frontend;
+- Supabase as managed backend;
+- repositories to separate UI and persistence;
+- local fallback only outside production;
+- public booking decoupled from full `appointments`;
+- tenant isolation by `barbershop_id`.
 
 ---
 
@@ -224,9 +224,9 @@ Decisoes importantes:
 - Supabase Auth
 - Supabase Database
 - Supabase Row Level Security
-- Supabase Storage para branding
+- Supabase Storage for branding
 
-### Qualidade
+### Quality
 
 - Vitest
 - Playwright
@@ -239,11 +239,11 @@ Decisoes importantes:
 
 ---
 
-## Seguranca e multi-tenant
+## Security and multi-tenant
 
-O app usa `barbershop_id` como chave principal de isolamento de tenant.
+The app uses `barbershop_id` as the main tenant isolation key.
 
-Modelo base:
+Base model:
 
 ```txt
 barbershops
@@ -254,27 +254,27 @@ barbershops
 \- financial records
 ```
 
-Pontos principais do modelo atual:
+Key points of the current model:
 
-- RLS tenant-aware no Supabase;
-- owner opera a propria barbearia;
-- barber opera apenas o proprio escopo autenticado;
-- booking publico nao faz `SELECT` publico em `appointments`;
-- disponibilidade publica usa `public.get_public_appointment_slots(uuid)`;
-- payload publico e validado antes de chegar ao Supabase;
-- conflitos ativos de slot sao bloqueados no app e por indice unico parcial no banco;
-- RPCs dedicadas para emissao, revogacao e aceite de convites;
-- regressao automatizada para mutations sensiveis entre tenants;
-- logs tecnicos sao sanitizados para evitar tokens, sessoes, headers e credenciais;
-- fallback/localStorage nao deve ser tratado como auth de producao.
+- tenant-aware RLS in Supabase;
+- owner operates their own barbershop;
+- barber operates only within their own authenticated scope;
+- public booking does not perform public `SELECT` on `appointments`;
+- public availability uses `public.get_public_appointment_slots(uuid)`;
+- public payload is validated before reaching Supabase;
+- active slot conflicts are blocked in the app and by partial unique index in the database;
+- dedicated RPCs for invitation issuance, revocation, and acceptance;
+- automated regression for sensitive cross-tenant mutations;
+- technical logs are sanitized to avoid tokens, sessions, headers, and credentials;
+- fallback/localStorage should not be treated as production auth.
 
-Limites importantes:
+Important limitations:
 
-- isso nao significa seguranca absoluta;
-- persistencia de sessao em SPA ainda merece hardening continuo contra XSS;
-- CAPTCHA, rate limiting externo e observabilidade ainda podem evoluir.
+- this does not mean absolute security;
+- SPA session persistence still deserves continuous hardening against XSS;
+- CAPTCHA, external rate limiting, and observability can still evolve.
 
-Mais detalhes:
+More details:
 
 - [docs/security-model.md](./docs/security-model.md)
 - [docs/team-invitations.md](./docs/team-invitations.md)
@@ -283,70 +283,70 @@ Mais detalhes:
 
 ---
 
-## Booking publico
+## Public booking
 
-O booking publico e tenant-aware e opera por slug.
+Public booking is tenant-aware and operates by slug.
 
-Comportamento atual:
+Current behavior:
 
-- carrega a barbearia por `/book/:slug`;
-- lista apenas barbeiros ativos da barbearia;
-- lista apenas servicos ativos da barbearia;
-- usa business hours e `slot_step_minutes` da barbearia do slug;
-- valida `barbershop_id`, `barber_id`, `service_id`, `start_at` e `end_at`;
-- cria appointment sem exigir `SELECT` publico em `appointments`;
-- bloqueia conflito de horario ativo para o mesmo barbeiro.
-- exibe mensagens especificas para slug invalido, tenant incompleto, conflito de horario e falha tecnica.
+- loads barbershop by `/book/:slug`;
+- lists only active barbers of the barbershop;
+- lists only active services of the barbershop;
+- uses business hours and `slot_step_minutes` from the slug's barbershop;
+- validates `barbershop_id`, `barber_id`, `service_id`, `start_at`, and `end_at`;
+- creates appointment without requiring public `SELECT` on `appointments`;
+- blocks active time conflict for the same barber;
+- displays specific messages for invalid slug, incomplete tenant, time conflict, and technical failure.
 
-O booking publico nao deve assumir tenant padrao silencioso em producao.
+Public booking should not silently assume a default tenant in production.
 
 ---
 
-## Painel interno
+## Internal panel
 
-O painel interno hoje ja diferencia claramente owner e barber.
+The internal panel now clearly differentiates owner and barber.
 
 ### Owner
 
-- cria e configura a propria barbearia;
-- edita branding publico;
-- define dias e horarios de funcionamento;
-- define `slot_step_minutes`;
-- cria, edita, remove ou desativa barbeiros e servicos;
-- usa checklist operacional para readiness do booking;
-- convida o barbeiro, que aceita explicitamente para vincular sua conta.
-- recebe mensagens especificas para falhas de catalogo, configuracao, upload, agendamento e vinculo de barbeiro.
+- creates and configures their own barbershop;
+- edits public branding;
+- sets operating days and hours;
+- sets `slot_step_minutes`;
+- creates, edits, removes, or deactivates barbers and services;
+- uses operational checklist for booking readiness;
+- invites barber, who explicitly accepts to link their account;
+- receives specific messages for catalog, configuration, upload, scheduling, and barber linking failures.
 
 ### Barber
 
-- entra apenas com profile coerente;
-- ve somente a propria agenda;
-- cria agendamento manual apenas para o proprio `barberId`;
-- usa `barbershopId` e `barberId` da sessao, nao do formulario.
-- recebe orientacao clara quando o profile esta incompleto ou a sessao precisa ser renovada.
+- enters only with a consistent profile;
+- sees only their own schedule;
+- creates manual appointment only for their own `barberId`;
+- uses `barbershopId` and `barberId` from the session, not the form;
+- receives clear guidance when profile is incomplete or session needs renewal.
 
-Fluxo operacional completo:
+Full operational flow:
 
 - [docs/owner-barber-operational-flow.md](./docs/owner-barber-operational-flow.md)
 
 ---
 
-## Como rodar localmente
+## Running locally
 
-Clone o repositorio:
+Clone the repository:
 
 ```bash
-git clone https://github.com/leorecoa/barbershop.git
+git clone https://github.com/diamond-1228/barbershop.git
 cd barbershop
 ```
 
-Instale as dependencias:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Crie o arquivo de ambiente:
+Create the environment file:
 
 ```bash
 cp .env.example .env
@@ -359,44 +359,44 @@ VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 ```
 
-Rode em desenvolvimento:
+Run in development:
 
 ```bash
 npm run dev
 ```
 
-Acesse:
+Access:
 
 ```txt
 http://localhost:5173
 ```
 
-Sem Supabase configurado, o app pode usar fallback local apenas em dev/demo. Em producao, o comportamento esperado e fail-closed.
+Without configured Supabase, the app can use local fallback in dev/demo only. In production, the expected behavior is fail-closed.
 
-Para configurar um ambiente Supabase novo, revise e aplique manualmente a sequencia documentada em [docs/deployment.md](./docs/deployment.md):
+To configure a new Supabase environment, review and manually apply the sequence documented in [docs/deployment.md](./docs/deployment.md):
 
 ```txt
-supabase/migrations (sequencia completa 001-034; revisao e aplicacao remota manuais)
+supabase/migrations (full sequence 001-034; manual review and remote application)
 ```
 
-Nao aplique apenas o schema base em producao; RLS tenant-aware, RPC publica de disponibilidade, indice de conflito e RPCs de convites fazem parte do estado operacional atual.
+Do not apply only the base schema in production; tenant-aware RLS, public availability RPC, conflict index, and invitation RPCs are part of the current operational state.
 
 ---
 
-## Testes e qualidade
+## Tests and quality
 
-Cobertura atual:
+Current coverage:
 
-- Vitest para regras de dominio, repositories e regressao de seguranca;
-- Vitest para readiness, booking publico, RBAC, catalogo owner, vinculo de barbeiro, relatorios e visibilidade de erros;
-- Playwright E2E para booking publico;
-- Playwright E2E para painel do barbeiro;
-- Playwright E2E para fluxo operacional do owner;
-- testes de regressao para tenant isolation e mutations sensiveis;
-- validacao de fail-closed sem Supabase em producao.
-- validacao de mensagens amigaveis e logs sanitizados em erros operacionais.
+- Vitest for domain rules, repositories, and security regression;
+- Vitest for readiness, public booking, RBAC, owner catalog, barber linking, reports, and error visibility;
+- Playwright E2E for public booking;
+- Playwright E2E for barber panel;
+- Playwright E2E for owner operational flow;
+- regression tests for tenant isolation and sensitive mutations;
+- fail-closed validation without Supabase in production;
+- friendly message and sanitized log validation for operational errors.
 
-Comandos principais:
+Main commands:
 
 ```bash
 npm run test
@@ -408,7 +408,7 @@ npm audit --audit-level=moderate
 npx playwright test
 ```
 
-Documentacao relacionada:
+Related documentation:
 
 - [docs/security-model.md](./docs/security-model.md)
 - [docs/dependency-audit.md](./docs/dependency-audit.md)
@@ -421,17 +421,17 @@ Documentacao relacionada:
 
 ## Performance
 
-Apos a baseline `v0.9.0-pilot`, o app recebeu um passe de performance focado no carregamento inicial:
+After the `v0.9.0-pilot` baseline, the app received a performance pass focused on initial loading:
 
-- bundle inicial reduzido de aproximadamente 738 kB para 491 kB;
-- gzip do chunk principal reduzido de aproximadamente 203 kB para 138 kB;
-- warning do Vite sobre chunk maior que 500 kB deixou de aparecer;
-- lazy loading aplicado em dashboards, modais e superficies internas;
-- booking publico preservado como entrada direta para `/book/:slug`;
-- splash e loading inicial foram reduzidos para nao dominar a primeira renderizacao;
-- imagens do booking usam `decoding="async"` e a capa above-the-fold usa prioridade alta quando aplicavel.
+- initial bundle reduced from approximately 738 kB to 491 kB;
+- main chunk gzip reduced from approximately 203 kB to 138 kB;
+- Vite warning about chunk larger than 500 kB no longer appears;
+- lazy loading applied to dashboards, modals, and internal surfaces;
+- public booking preserved as direct entry for `/book/:slug`;
+- splash and initial loading were reduced to not dominate the first render;
+- booking images use `decoding="async"` and the above-the-fold cover uses high priority when applicable.
 
-Ultima medicao registrada em Lighthouse mobile simulation:
+Last recorded measurement on Lighthouse mobile simulation:
 
 ```txt
 FCP         ~2.1s
@@ -439,78 +439,52 @@ LCP         ~3.3s
 Speed Index ~2.1s
 ```
 
-Esses numeros variam conforme rede, dispositivo, cache e dados carregados no tenant. As mudancas nao alteraram booking publico, dashboard owner, dashboard barber ou isolamento por tenant.
+These numbers vary by network, device, cache, and tenant loaded data. The changes did not alter public booking, owner dashboard, barber dashboard, or tenant isolation.
 
 ---
 
-## Limites atuais
+## Current limitations
 
-O projeto ainda nao implementa:
+The project does not yet implement:
 
-- billing ou assinatura;
-- convite formal por e-mail;
-- admin global ou suporte operacional multi-tenant;
-- observabilidade externa ou coleta centralizada de logs;
-- rate limit externo e CAPTCHA;
-- fluxo comercial completo para escala SaaS;
-- hardening adicional de sessao e superficie de XSS.
+- billing or subscription;
+- formal email invitation;
+- global admin or multi-tenant operational support;
+- external observability or centralized log collection;
+- external rate limit and CAPTCHA;
+- complete commercial flow for SaaS scale;
+- additional session hardening and XSS surface.
 
 ---
 
 ## Roadmap
 
-Proximos passos mais relevantes:
+Most relevant next steps:
 
-- validar piloto controlado com uma barbearia real;
-- evoluir onboarding comercial da barbearia;
-- implementar billing e assinatura;
-- criar convite de equipe mais formal;
-- criar admin global/suporte operacional;
-- ampliar observabilidade e auditoria operacional fora do console;
-- avaliar rate limiting e CAPTCHA para booking publico;
-- endurecer ainda mais sessao e superficie de XSS;
-- continuar polindo UX de onboarding, owner e barber.
-
----
-
-## Screenshots
-
-Screenshots reais podem ser adicionados em `docs/screenshots/` quando houver material atualizado do piloto. Os caminhos abaixo ficam reservados para imagens do produto, sem representar dados demo obrigatorios.
-
-### Dashboard
-
-![Dashboard](./docs/screenshots/dashboard.png)
-
-### Agenda
-
-![Agenda](./docs/screenshots/agenda.png)
-
-### Booking publico
-
-![Booking publico](./docs/screenshots/booking.png)
-
-### Gestao de servicos
-
-![Servicos](./docs/screenshots/services.png)
-
-### Branding da barbearia
-
-![Branding](./docs/screenshots/branding.png)
+- validate controlled pilot with a real barbershop;
+- evolve commercial barbershop onboarding;
+- implement billing and subscription;
+- create more formal team invitation;
+- create global admin/operational support;
+- expand observability and operational auditing outside the console;
+- evaluate rate limiting and CAPTCHA for public booking;
+- further harden session and XSS surface;
+- continue polishing onboarding, owner, and barber UX.
 
 ---
 
-## Licenca
+## License
 
-Consulte o arquivo [LICENSE](./LICENSE).
+See the [LICENSE](./LICENSE) file.
 
 ---
 
-## Autor
+## Author
 
-Desenvolvido por Leandro Jesse.
+Developed by diamond-1228.
 
 GitHub:
 
-https://github.com/leorecoa
+https://github.com/diamond-1228
 
 Last updated: 4 Mar 2026

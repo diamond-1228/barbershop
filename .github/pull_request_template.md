@@ -1,12 +1,12 @@
-## Resumo
+## Summary
 
 - 
 
-## Validacao
+## Validation
 
 - [ ] `npm run check`
 - [ ] `npm audit --audit-level=moderate`
 
-## Observacoes
+## Notes
 
 - 

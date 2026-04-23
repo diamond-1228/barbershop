@@ -1,28 +1,28 @@
 ---
 name: Bug report
-about: Reporte um problema no app
+about: Report a problem in the app
 title: "bug: "
 labels: bug
 assignees: ""
 ---
 
-## Descricao
+## Description
 
 
-## Passos para reproduzir
+## Steps to reproduce
 
 1.
 2.
 3.
 
-## Comportamento esperado
+## Expected behavior
 
 
-## Evidencias
+## Evidence
 
 
-## Ambiente
+## Environment
 
-- Navegador:
-- Dispositivo:
-- Versao/commit:
+- Browser:
+- Device:
+- Version/commit:

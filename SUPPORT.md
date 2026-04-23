@@ -1,31 +1,31 @@
-# Suporte
+# Support
 
-Use este guia para escolher o melhor canal ao reportar problemas ou sugerir melhorias.
+Use this guide to choose the best channel when reporting issues or suggesting improvements.
 
 ## Bugs
 
-Abra uma issue usando o template de bug e inclua:
+Open an issue using the bug template and include:
 
-- O que aconteceu.
-- O que voce esperava.
-- Passos para reproduzir.
-- Navegador e dispositivo usados.
-- Prints ou logs, se houver.
+- What happened.
+- What you expected.
+- Steps to reproduce.
+- Browser and device used.
+- Screenshots or logs, if available.
 
-## Sugestoes
+## Suggestions
 
-Abra uma issue usando o template de feature request e descreva:
+Open an issue using the feature request template and describe:
 
-- O problema que a melhoria resolve.
-- O comportamento esperado.
-- Criterios de aceite.
+- The problem the improvement solves.
+- The expected behavior.
+- Acceptance criteria.
 
-## Perguntas rapidas
+## Quick questions
 
-Para duvidas simples, abra uma issue com contexto suficiente para reproduzir o cenario.
+For simple questions, open an issue with enough context to reproduce the scenario.
 
-## Dados sensiveis
+## Sensitive data
 
-Nao envie dados reais de clientes, telefones, enderecos, backups ou relatorios privados em issues publicas.
+Do not submit real customer data, phone numbers, addresses, backups, or private reports in public issues.
 
-Para vulnerabilidades, siga a politica em [SECURITY.md](SECURITY.md).
+For vulnerabilities, follow the policy in [SECURITY.md](SECURITY.md).
