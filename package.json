@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@sentry/react": "10.69.0",
-    "@supabase/supabase-js": "^2.108.0",
+    "@supabase/supabase-js": "^2.119.2",
     "framer-motion": "^12.40.0",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.8",
